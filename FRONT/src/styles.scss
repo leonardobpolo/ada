@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #4f575e;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: lighter;
+}
+
+h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+p { margin: 16px 0; }
+
+input {
+    width: 100%;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+}
+
+textarea {
+    outline: none;
+}
+
+.page {
+    position: relative;
+    min-height: 100%;
+    padding: 25px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

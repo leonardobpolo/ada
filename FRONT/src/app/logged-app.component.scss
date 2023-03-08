@@ -1,0 +1,16 @@
+.main {
+    .header {
+        position: absolute;
+        z-index: 2;
+        width: 100vw;
+        height: 70px;
+        background: #ffffff;
+    }
+   
+    .content {
+        width: 100vw;
+        height: 100vh;
+        padding-top: 70px;
+        background: #e7eef1;
+    }
+}

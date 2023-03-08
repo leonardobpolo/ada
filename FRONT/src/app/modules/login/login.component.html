@@ -1,0 +1,27 @@
+<div class="login-box">
+  <img src="./assets/logo.png" />
+
+  <form
+    [formGroup]="authForm"
+    (ngSubmit)="login()">
+
+    <label>Usuário</label>
+        
+    <input
+      formControlName="user"
+      required>
+
+    <label>Senha</label>
+        
+    <input
+      type="password"
+      formControlName="password"
+      required>
+
+    <div class="actions">
+      <button type="submit">
+        Autenticar
+      </button>
+    </div>
+  </form>
+</div>

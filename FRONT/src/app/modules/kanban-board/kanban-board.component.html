@@ -1,0 +1,270 @@
+<div class="page">
+    <h1>Kanban Board</h1>
+
+    <div class="board">
+        <div>
+            <div
+                cdkDropList
+                #toDoListColumn="cdkDropList"
+                [cdkDropListData]="toDoList"
+                [cdkDropListConnectedTo]="[doingListColumn, doneListColumn]"
+                (cdkDropListDropped)="drop($event)"
+                class="column"
+                id="TODO">
+
+                <h2>To Do</h2>
+
+                <div
+                    class="task"
+                    [ngClass]="{ 'edit': task.edit }"
+                    *ngFor="let task of toDoList; let i = index"
+                    cdkDrag>
+
+                    <div class="title">
+                        <span>{{ task.titulo }}</span>
+
+                        <input
+                            type="text"
+                            placeholder="Titulo"
+                            [(ngModel)]="task.newTitulo">
+                    </div>
+
+                    <div class="description">
+                        <span>{{ task.conteudo }}</span>
+                        
+                        <textarea
+                            rows="4"
+                            placeholder="Descrição"
+                            [(ngModel)]="task.newConteudo"></textarea>
+                    </div>
+
+                    <div class="actions">
+                        <span
+                            *ngIf="task.edit === true"
+                            class="error">
+
+                            {{ this.editionTaskError }}
+                        </span>
+
+                        <button
+                            *ngIf="!task.edit"
+                            (click)="deleteTask(task.id)">
+
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button
+                            *ngIf="!task.edit"
+                            (click)="editionStart('TODO', i)">
+
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button
+                            *ngIf="task.edit"
+                            (click)="editionCancel()">
+                            
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+
+                        <button
+                            *ngIf="task.edit"
+                            (click)="editionDone('TODO', i)">
+                            
+                            <mat-icon>done</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                *ngIf="!showNewTaskBtn"
+                class="task add">
+
+                <div class="title">
+                    <input
+                        type="text"
+                        placeholder="Titulo"
+                        [(ngModel)]="newTask.titulo">
+                </div>
+
+                <div class="description">
+                    <textarea
+                        rows="4"
+                        placeholder="Descrição"
+                        [(ngModel)]="newTask.conteudo"></textarea>
+                </div>
+
+                <div class="actions">
+                    <span class="error">{{ this.newTaskError }}</span>
+
+                    <button (click)="creationCancel()">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+
+                    <button (click)="creationDone('TODO')">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                *ngIf="showNewTaskBtn"
+                class="new-task"
+                (click)="createTask()">
+
+                <mat-icon>
+                    add_circle
+                </mat-icon>
+            </div>
+        </div>
+
+        <div
+            cdkDropList
+            #doingListColumn="cdkDropList"
+            [cdkDropListData]="doingList"
+            [cdkDropListConnectedTo]="[toDoListColumn, doneListColumn]"
+            (cdkDropListDropped)="drop($event)"
+            class="column"
+            id="DOING">
+
+            <h2>Doing</h2>
+
+            <div
+                class="task"
+                [ngClass]="{ 'edit': task.edit }"
+                *ngFor="let task of doingList; let i = index"
+                cdkDrag>
+
+                <div class="title">
+                    <span>{{ task.titulo }}</span>
+
+                    <input
+                        type="text"
+                        placeholder="Titulo"
+                        [(ngModel)]="task.newTitulo">
+                </div>
+
+                <div class="description">
+                    <span>{{ task.conteudo }}</span>
+                    
+                    <textarea
+                        rows="4"
+                        placeholder="Descrição"
+                        [(ngModel)]="task.newConteudo"></textarea>
+                </div>
+
+                <div class="actions">
+                    <span
+                        *ngIf="task.edit === true"
+                        class="error">
+
+                        {{ this.editionTaskError }}
+                    </span>
+
+                    <button
+                        *ngIf="!task.edit"
+                        (click)="deleteTask(task.id)">
+
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="!task.edit"
+                        (click)="editionStart('DOING', i)">
+
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="task.edit"
+                        (click)="editionCancel()">
+                        
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="task.edit"
+                        (click)="editionDone('DOING', i)">
+                        
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            cdkDropList
+            #doneListColumn="cdkDropList"
+            [cdkDropListData]="doneList"
+            [cdkDropListConnectedTo]="[toDoListColumn, doingListColumn]"
+            (cdkDropListDropped)="drop($event)"
+            class="column"
+            id="DONE">
+
+            <h2>Done</h2>
+
+            <div
+                class="task"
+                [ngClass]="{ 'edit': task.edit }"
+                *ngFor="let task of doneList; let i = index"
+                cdkDrag>
+
+                <div class="title">
+                    <span>{{ task.titulo }}</span>
+
+                    <input
+                        type="text"
+                        placeholder="Titulo"
+                        [(ngModel)]="task.newTitulo">
+                </div>
+
+                <div class="description">
+                    <span>{{ task.conteudo }}</span>
+                    
+                    <textarea
+                        rows="4"
+                        placeholder="Descrição"
+                        [(ngModel)]="task.newConteudo"></textarea>
+                </div>
+
+                <div class="actions">
+                    <span
+                        *ngIf="task.edit === true"
+                        class="error">
+
+                        {{ this.editionTaskError }}
+                    </span>
+
+                    <button
+                        *ngIf="!task.edit"
+                        (click)="deleteTask(task.id)">
+
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="!task.edit"
+                        (click)="editionStart('DONE', i)">
+
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="task.edit"
+                        (click)="editionCancel()">
+                        
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+
+                    <button
+                        *ngIf="task.edit"
+                        (click)="editionDone('DONE', i)">
+                        
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
